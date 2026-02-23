@@ -16,143 +16,73 @@ st.markdown("""
 <style>
     /* Global Styles */
     .stApp {
-        background-color: #0b0f19;
-        color: #e2e8f0;
         font-family: 'Inter', sans-serif;
     }
 
     /* Headers */
-    h1 {
-        background: linear-gradient(90.7deg, rgb(255, 253, 218) 1.9%, rgb(246, 186, 255) 39.5%, rgb(155, 226, 255) 75.6%, rgb(255, 253, 218) 100.2%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-family: 'Inter', sans-serif;
-        font-weight: 800;
-        letter-spacing: -1px;
-    }
-    
-    h2, h3 {
-        color: #e2e8f0;
+    h1, h2, h3 {
         font-family: 'Inter', sans-serif;
         font-weight: 600;
+        color: #1e293b;
     }
 
     /* Text */
     p {
-        color: #94a3b8;
+        color: #475569;
         font-size: 1.1rem;
-    }
-
-    /* Sidebar */
-    .css-1d391kg {
-        background-color: #111827;
-        border-right: 1px solid rgba(255,255,255,0.05);
-    }
-    
-    .stSlider > div > div > div > div {
-        background: linear-gradient(90.7deg, rgb(246, 186, 255) 0%, rgb(155, 226, 255) 100%) !important;
-    }
-
-    .stNumberInput > div > div > input {
-        background-color: #1f2937;
-        color: #e2e8f0;
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 8px;
-    }
-
-    .stCheckbox > label > div[role="checkbox"] {
-        background-color: #1f2937;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .stCheckbox > label > div[role="checkbox"][aria-checked="true"] {
-        background-color: #8b5cf6;
-        border: 1px solid #8b5cf6;
-    }
-
-    /* Selectbox */
-    .stSelectbox > div > div > div {
-        background-color: #1f2937;
-        color: #e2e8f0;
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 8px;
-    }
-
-    /* Buttons */
-    .stButton > button {
-        background: linear-gradient(90.7deg, rgb(246, 186, 255) 1.9%, rgb(155, 226, 255) 100.2%) !important;
-        color: #1e293b !important;
-        border: none !important;
-        border-radius: 12px !important;
-        font-weight: 700 !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        padding: 0.75rem 1.5rem !important;
-        box-shadow: 0 4px 15px rgba(246, 186, 255, 0.3) !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .stButton > button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(246, 186, 255, 0.5) !important;
-        filter: brightness(1.1);
     }
 
     /* Dataframe */
     .stDataFrame {
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
     /* Result Card */
     .result-card {
-        padding: 3rem;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        background-color: #ffffff;
         text-align: center;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .result-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; height: 1px;
-        background: linear-gradient(90.7deg, transparent, rgb(246, 186, 255), rgb(155, 226, 255), transparent);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     }
 
     .result-card h3 {
-        color: #94a3b8;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
+        color: #64748b;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: 500;
+        letter-spacing: 1px;
+        font-weight: 600;
     }
 
     .result-card h1 {
-        font-size: 4.5rem;
+        font-size: 3.5rem;
         margin: 0;
-        text-shadow: 0 0 30px rgba(246, 186, 255, 0.2);
-    }
-
-    /* Animations */
-    @keyframes scaleIn {
-        from { opacity: 0; transform: scale(0.9) translateY(20px); }
-        to { opacity: 1; transform: scale(1) translateY(0); }
+        color: #2563eb;
+        font-weight: 700;
     }
 
     /* Dividers */
     hr {
-        border-color: rgba(255,255,255,0.05);
-        margin: 3rem 0;
+        border-color: #e2e8f0;
+        margin: 2.5rem 0;
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+        h1, h2, h3 { color: #f8fafc; }
+        p { color: #cbd5e1; }
+        .result-card {
+            background-color: #1e293b;
+            border-color: #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+        .result-card h1 { color: #60a5fa; }
+        .result-card h3 { color: #94a3b8; }
+        hr, .stDataFrame { border-color: #334155; }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -258,7 +188,6 @@ with col2:
                     <h1>₹ {int(prediction):,}</h1>
                 </div>
                 """, unsafe_allow_html=True)
-                st.balloons()
             except Exception as e:
                 st.error(f"⚠️ Prediction failed: {str(e)}")
                 
