@@ -11,6 +11,128 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ---------------- CUSTOM CSS ---------------- #
+st.markdown("""
+<style>
+    /* Global Styles */
+    .stApp {
+        background-color: #0d1117;
+        color: #c9d1d9;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Headers */
+    h1, h2, h3 {
+        color: #58a6ff;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+    }
+
+    /* Text */
+    p {
+        color: #8b949e;
+        font-size: 1.1rem;
+    }
+
+    /* Sidebar */
+    .css-1d391kg {
+        background-color: #161b22;
+        border-right: 1px solid #30363d;
+    }
+    
+    .stSlider > div > div > div > div {
+        background-color: #238636 !important;
+    }
+
+    .stNumberInput > div > div > input {
+        background-color: #21262d;
+        color: #c9d1d9;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+    }
+
+    .stCheckbox > label > div[role="checkbox"] {
+        background-color: #21262d;
+        border: 1px solid #30363d;
+    }
+
+    .stCheckbox > label > div[role="checkbox"][aria-checked="true"] {
+        background-color: #238636;
+        border: 1px solid #238636;
+    }
+
+    /* Selectbox */
+    .stSelectbox > div > div > div {
+        background-color: #21262d;
+        color: #c9d1d9;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        background-color: #238636 !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(240, 246, 252, 0.1) !important;
+        border-radius: 6px !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease-in-out !important;
+        padding: 0.5rem 1rem !important;
+    }
+
+    .stButton > button:hover {
+        background-color: #2ea043 !important;
+        border-color: rgba(240, 246, 252, 0.1) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+
+    /* Dataframe */
+    .stDataFrame {
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    /* Result Card */
+    .result-card {
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid #30363d;
+        background: linear-gradient(145deg, #161b22, #0d1117);
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .result-card h3 {
+        color: #8b949e;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .result-card h1 {
+        color: #58a6ff;
+        font-size: 3rem;
+        margin: 0;
+        text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Dividers */
+    hr {
+        border-color: #30363d;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # ---------------- LOAD MODEL ---------------- #
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -34,8 +156,8 @@ except Exception as e:
     st.stop()
 
 # ---------------- HEADER ---------------- #
-st.markdown("<h1 style='text-align: center; color: #4CAF50;'>🏡 Valdýr: House Price Prediction</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #888;'>Get an instant estimate for your property value using Machine Learning.</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>🏡 Valdýr: House Price Prediction</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Get an instant estimate for your property value using Machine Learning.</p>", unsafe_allow_html=True)
 st.divider()
 
 # ---------------- SIDEBAR INPUTS ---------------- #
@@ -107,9 +229,9 @@ with col2:
                 prediction = model.predict(input_df)[0]
                 st.success("Analysis Complete!")
                 st.markdown(f"""
-                <div style="padding: 20px; border-radius: 10px; border: 2px solid #4CAF50; text-align: center; background-color: #f9f9f9;">
-                    <h3 style="margin: 0; color: #333;">Estimated Price</h3>
-                    <h1 style="color: #4CAF50; margin: 10px 0;">₹ {int(prediction):,}</h1>
+                <div class="result-card">
+                    <h3>Estimated Price</h3>
+                    <h1>₹ {int(prediction):,}</h1>
                 </div>
                 """, unsafe_allow_html=True)
                 st.balloons()
