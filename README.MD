@@ -84,12 +84,20 @@ Features include location, size, rooms, age, and amenities.
 
 ### Usage
 
-1.  **Run Jupyter Lab**
-    ```bash
-    jupyter lab
+**1. Create Environment Variables**
+Create a `.env` file in the root directory to store your API keys:
+```bash
+GROQ_API_KEY=your_groq_key_here
+```
 
-    #or
+**2. Run the Web Application**
+Launch the Streamlit dashboard to predict prices and generate AI advisory reports:
+```bash
+streamlit run app/streamlit_app.py
+```
 
-    python3 -m jupyter lab
-    ```
-    Navigate to `notebooks/data_exploration.ipynb` to start exploring the data.
+**3. Run Jupyter Lab (Optional Data Exploration)**
+```bash
+jupyter lab
+```
+Navigate to `notebooks/data_exploration.ipynb` to explore the dataset and models.
