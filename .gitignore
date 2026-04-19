@@ -16,3 +16,4 @@ test_env
 
 # MacOS
 .DS_Store
+.env.example
