@@ -4,16 +4,22 @@ __pycache__/
 *.py[cod]
 *$py.class
 .venv/
-# Jupyter Notebook
-.ipynb_checkpoints
-# Virtual Environment
 venv/
 env/
-.env
-test_env
 
-test_env
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Virtual Environment
+.env
+test_env/
 
 # MacOS
 .DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Environment Template
 .env.example
