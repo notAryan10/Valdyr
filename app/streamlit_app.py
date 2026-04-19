@@ -140,13 +140,8 @@ furnishingstatus = st.sidebar.selectbox(
 )
 
 st.sidebar.markdown("### 🤖 AI Engine")
-ai_provider = st.sidebar.selectbox(
-    "AI Engine",
-    ["Groq (Llama 3.3)", "Gemini (1.5 Flash)"],
-    label_visibility="collapsed"
-)
-provider_map = {"Groq (Llama 3.3)": "groq", "Gemini (1.5 Flash)": "gemini"}
-selected_provider = provider_map[ai_provider]
+st.sidebar.info("Gemini (1.5 Flash)")
+selected_provider = "gemini"
 
 # ─── Feature Dict & DataFrame ─────────────────────────────────────────────────
 # Build the raw feature dict (same structure used by both prediction tabs)
@@ -248,8 +243,8 @@ with tab1:
 with tab2:
     st.markdown("### 🤖 AI-Powered Real Estate Advisory Report")
     st.write(
-        "Our AI agent (LangGraph + RAG) will analyze your property, predict its price, "
-        "retrieve relevant market knowledge, and generate a structured advisory report."
+        "Our Gemini-powered AI agent (LangGraph + RAG) will analyze your property, "
+        "predict its price, retrieve relevant market knowledge, and generate a structured advisory report."
     )
 
     if st.button("Generate Advisory Report 📄", use_container_width=True, type="primary", key="btn_advisory"):
@@ -332,7 +327,7 @@ st.divider()
 st.markdown(
     "<p style='text-align:center; color:#94a3b8; font-size:0.85rem;'>"
     "🏡 Valdýr &nbsp;|&nbsp; ML Price Prediction · LangGraph Agent · RAG Knowledge Base<br>"
-    "Built with Streamlit · scikit-learn · LangGraph · FAISS · Groq / Gemini"
+    "Built with Streamlit · scikit-learn · LangGraph · FAISS · Gemini API"
     "</p>",
     unsafe_allow_html=True
 )
