@@ -76,12 +76,20 @@ hotwaterheating = st.sidebar.checkbox("🔥 Hot Water Heating", value=False)
 airconditioning = st.sidebar.checkbox("❄️ Air Conditioning", value=True)
 prefarea = st.sidebar.checkbox("📍 Preferred Area", value=True)
 
-st.sidebar.markdown("### 🛋️ Furnishing Status")
 furnishingstatus = st.sidebar.selectbox(
     "Select Furnishing",
     ["furnished", "semi-furnished", "unfurnished"],
     label_visibility="collapsed"
 )
+
+st.sidebar.markdown("### 🤖 AI Model")
+ai_provider = st.sidebar.selectbox(
+    "Select AI Engine",
+    ["Groq (Llama 3.3)", "Gemini (1.5 Flash)"],
+    label_visibility="collapsed"
+)
+provider_map = {"Groq (Llama 3.3)": "groq", "Gemini (1.5 Flash)": "gemini"}
+selected_provider = provider_map[ai_provider]
 
 input_dict = {
     "area": area,
@@ -161,7 +169,7 @@ with tab2:
                     "furnishingstatus": furnishingstatus,
                 }
 
-                result = run_advisory(property_data)
+                result = run_advisory(property_data, provider=selected_provider)
                 st.session_state.advisory_result = result
                 st.session_state.advisory_property = property_data
 
@@ -202,6 +210,6 @@ with tab2:
 
 st.divider()
 st.markdown(
-    "<p style='text-align: center; color: #888;'>Built with ❤️ | Streamlit + scikit-learn + LangGraph + Gemini</p>",
+    "<p style='text-align: center; color: #888;'>Built with ❤️ | Streamlit + scikit-learn + LangGraph</p>",
     unsafe_allow_html=True
 )
