@@ -11,7 +11,7 @@ from src.agent.langgraph_flow import run_advisory
 from src.agent.report_pdf import generate_pdf
 
 st.set_page_config(
-    page_title="Valdýr - Real Estate Advisory",
+    page_title="Valdýr – Housing Price Prediction & Real Estate Advisor",
     page_icon="🏡",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -19,32 +19,78 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
     .stApp { font-family: 'Inter', sans-serif; }
     h1, h2, h3 { font-family: 'Inter', sans-serif; font-weight: 600; color: #1e293b; }
-    p { color: #475569; font-size: 1.1rem; }
-    .stDataFrame { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+    p { color: #475569; font-size: 1.05rem; }
+
+    /* Result card */
     .result-card {
-        padding: 2.5rem; border-radius: 12px; border: 1px solid #e2e8f0;
-        background-color: #ffffff; text-align: center;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        padding: 2rem 2.5rem;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+        text-align: center;
+        box-shadow: 0 4px 24px -4px rgba(37, 99, 235, 0.10), 0 2px 8px -2px rgba(0,0,0,0.04);
+        margin-top: 1rem;
     }
-    .result-card h3 { color: #64748b; font-size: 1rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-    .result-card h1 { font-size: 3.5rem; margin: 0; color: #2563eb; font-weight: 700; }
-    hr { border-color: #e2e8f0; margin: 2.5rem 0; }
+    .result-card .label {
+        color: #64748b;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+    }
+    .result-card .price {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #2563eb;
+        line-height: 1.1;
+        margin: 0.2rem 0 0.6rem;
+    }
+    .result-card .sub {
+        color: #94a3b8;
+        font-size: 0.85rem;
+    }
+
+    /* Advisory report report body */
+    .report-body {
+        background: #f8faff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 2rem 2.5rem;
+        margin-top: 1rem;
+        font-size: 0.97rem;
+        line-height: 1.75;
+        color: #334155;
+    }
+
+    hr { border-color: #e2e8f0; margin: 2rem 0; }
+    .stDataFrame { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+
+    [data-testid="stSidebar"] { background: #f1f5f9; }
+
     @media (prefers-color-scheme: dark) {
         h1, h2, h3 { color: #f8fafc; }
         p { color: #cbd5e1; }
-        .result-card { background-color: #1e293b; border-color: #334155; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
-        .result-card h1 { color: #60a5fa; }
-        .result-card h3 { color: #94a3b8; }
+        .result-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-color: #334155;
+        }
+        .result-card .price { color: #60a5fa; }
+        .result-card .label { color: #94a3b8; }
+        .report-body { background: #1e293b; border-color: #334155; color: #e2e8f0; }
         hr, .stDataFrame { border-color: #334155; }
+        [data-testid="stSidebar"] { background: #0f172a; }
     }
 </style>
 """, unsafe_allow_html=True)
 
 BASE_DIR = Path(__file__).resolve().parent
 
-@st.cache_resource(show_spinner="Loading House Price Prediction Model...")
+@st.cache_resource(show_spinner="Loading prediction model…")
 def load_model():
     model = joblib.load(BASE_DIR / "house_price_model.pkl")
     model_columns = joblib.load(BASE_DIR / "model_columns.pkl")
@@ -53,14 +99,20 @@ def load_model():
 try:
     model, model_columns = load_model()
 except Exception as e:
-    st.error(f"Error setting up prediction model: {e}")
+    st.error(f"**Model load failed:** {e}")
     st.stop()
 
-st.markdown("<h1 style='text-align: center;'>🏡 Valdýr: Real Estate Advisory</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Get price predictions and AI-powered advisory reports for your property.</p>", unsafe_allow_html=True)
+st.markdown(
+    "<h1 style='text-align:center;'>🏡 Valdýr: Housing Price Prediction & Real Estate Advisor</h1>",
+    unsafe_allow_html=True
+)
+st.markdown(
+    "<p style='text-align:center;'>Enter property details to get an ML-powered price estimate and an AI-generated real estate advisory report.</p>",
+    unsafe_allow_html=True
+)
 st.divider()
 
-st.sidebar.markdown("## ⚙️ House Features")
+st.sidebar.markdown("## ⚙️ Property Features")
 
 area = st.sidebar.slider("📐 Area (sq ft)", 500, 10000, 2000, step=100)
 bedrooms = st.sidebar.number_input("🛏️ Bedrooms", 1, 6, 3)
